@@ -8,6 +8,8 @@ public class ItemCollector : MonoBehaviour
     [SerializeField] private GameObject SingleGateUI;
     [SerializeField] private Sprite xgateSprite;
 
+    private List<string> duckGates = new List<string> {};
+
     private int gateCount = 0;
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -16,7 +18,14 @@ public class ItemCollector : MonoBehaviour
             Destroy(collision.gameObject);
             gateCount++;
             AddSingleGateUIElement(xgateSprite);
+            duckGates.Add("X");
         }
+
+        foreach (string value in duckGates)
+        {
+            Debug.Log(value);
+        }
+
     }
 
     void AddSingleGateUIElement(Sprite gateSprite)
