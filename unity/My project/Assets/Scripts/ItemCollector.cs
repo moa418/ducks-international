@@ -17,8 +17,10 @@ public class ItemCollector : MonoBehaviour
             Destroy(collision.gameObject);
             gateCount++;
             AddSingleGateUIElement(xgateSprite);
-            stage.gate_list.Add("X-Gate");
         }
+        Gate1Q g = new Gate1Q(collision.gameObject.tag, collision.gameObject.GetComponent<PlayerMovement>().qubitID);
+        stage.gate_list.Add(g);
+        Debug.Log(stage.gate_list[0].ToString());
 
     }
 

@@ -2,6 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// public struct QubitID {
+//     public QubitID(int id) {
+//         ID = id;
+//     }
+
+//     public int ID { get; }
+
+//     public override string ToString() => $"{ID}";
+// }
+
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D body;
@@ -10,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask jumpableGround;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
+    [SerializeField] public int qubitID;
 
 
     // Start is called before the first frame update

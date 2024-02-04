@@ -6,6 +6,12 @@ TagManager:
   tags:
   - X-Gate
   - Z-Gate
+  - CX-Gate
+  - CZ-Gate
+  - H-Gate
+  - Water
+  - Lava
+  - Bomb
   layers:
   - Default
   - TransparentFX
