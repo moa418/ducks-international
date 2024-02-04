@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class Finish : MonoBehaviour
 {
 
-    [SerializeField] private int targetState;
+    [SerializeField] public int targetState;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +29,7 @@ public class Finish : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<ExecuteCircuit>().state == targetState)
+        if ((int)(collision.gameObject.GetComponent<ExecuteCircuit>().state%2) == targetState)
         {
             CompleteLevel();
         }

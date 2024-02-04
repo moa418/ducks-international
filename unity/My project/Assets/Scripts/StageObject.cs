@@ -34,6 +34,9 @@ public class StageObject : MonoBehaviour
     {
         gate_list.Clear();
         qubit_array = GameObject.FindGameObjectsWithTag("Player");
+        for(int i = 0; i < qubit_array.Length; i++) { 
+            UnityEngine.Debug.Log(qubit_array[i].name);
+        }
     }
 
     // Update is called once per frame
@@ -45,8 +48,8 @@ public class StageObject : MonoBehaviour
     public void ChangeState(int id, float rot) {
         PlayerMovement pm = qubit_array[id].GetComponent<PlayerMovement>();
         ExecuteCircuit ec = qubit_array[id].GetComponent<ExecuteCircuit>();
-        pm.state += rot;
-        ec.UpdateColor(pm.state);
+        pm.state = rot;
+        ec.UpdateColor(rot);
         // if(entangled_qubits1.Contains(id)) {
         //     for(int i = 0; i < entangled_qubits1.Count; i++) {
         //         if(entangled_qubits1[i] != id) {
@@ -119,8 +122,9 @@ f.close()";
         UnityEngine.Debug.Log(measured_states);
         for(int i = 0; i < measured_states.Count; i++) {
 
-            ExecuteCircuit ec = qubit_array[i].GetComponent<ExecuteCircuit>();
-            ec.UpdateColor(1 - (float)measured_states[i]);
+            // ExecuteCircuit ec = qubit_array[i].GetComponent<ExecuteCircuit>();
+            ChangeState(i, measured_states[i]);
+            // ec.UpdateColor((float)measured_states[i]);
             UnityEngine.Debug.Log(measured_states[i]);
         }
 
