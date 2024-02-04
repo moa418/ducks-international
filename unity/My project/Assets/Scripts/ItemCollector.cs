@@ -7,6 +7,7 @@ public class ItemCollector : MonoBehaviour
 {
     [SerializeField] private GameObject SingleGateUI;
     [SerializeField] private Sprite xgateSprite;
+    [SerializeField] private StageObject stage;
 
     private int gateCount = 0;
     private void OnTriggerEnter2D(Collider2D collision)
@@ -16,7 +17,9 @@ public class ItemCollector : MonoBehaviour
             Destroy(collision.gameObject);
             gateCount++;
             AddSingleGateUIElement(xgateSprite);
+            stage.gate_list.Add("X-Gate");
         }
+
     }
 
     void AddSingleGateUIElement(Sprite gateSprite)
