@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ItemCollector : MonoBehaviour
 {
@@ -31,10 +33,11 @@ public class ItemCollector : MonoBehaviour
             g = new Gate(collision.gameObject.tag, qID - 1, qID);
             stage.gate_list.Add(g);
             Debug.Log(g.ToString());
-            float qID1State = StageObject.qubit_array[qID - 1].GetComponent<PlayerMovement>().state;
-            stage.ChangeState(qID, qID1State);
+            float qID0State = StageObject.qubit_array[qID - 1].GetComponent<PlayerMovement>().state;
+            stage.ChangeState(qID, (curr_state + qID0State) % 2);
             stage.entangled_qubits1.Add(qID - 1);
             stage.entangled_qubits1.Add(qID);
+            Destroy(collision.gameObject);
         } else if((coll_tag == "Water") || (coll_tag == "Lava") || (coll_tag == "Measure")) {
             Debug.Log("Execute measure");
             gateCount++;
@@ -43,6 +46,10 @@ public class ItemCollector : MonoBehaviour
             stage.gate_list.Add(g);
             Debug.Log(g.ToString());
             stage.Measure();
+            if(gameObject.GetComponent<PlayerMovement>().state == collision.gameObject.GetComponent<Finish>().targetState)
+            {
+                CompleteLevel();
+            }
         } else {
             Debug.Log("Add gate");
             gateCount++;
@@ -51,14 +58,14 @@ public class ItemCollector : MonoBehaviour
             stage.gate_list.Add(g);
             Debug.Log(g.ToString());
             if(coll_tag == "X-Gate") {
-                stage.ChangeState(qID, 1f);
+                stage.ChangeState(qID, Math.Abs(((1f-curr_state)+2)%2));
             } else if(coll_tag == "H-Gate") {
-                stage.ChangeState(qID, (float)((-(curr_state-0.75))+0.75));
+                stage.ChangeState(qID, Math.Abs((float)((0.5f-curr_state)+2)%2));
             } else if(coll_tag == "Z-Gate") {
                 stage.ChangeState(qID, (((curr_state-1)*-1) + 1) % 2);
             }
+            Destroy(collision.gameObject);
         }
-        Destroy(collision.gameObject);
     }
 
     void AddSingleGateUIElement(GameObject gate_obj)
@@ -90,5 +97,10 @@ public class ItemCollector : MonoBehaviour
             }
             // Destroy the child object
         }
+    }
+
+    private void CompleteLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
