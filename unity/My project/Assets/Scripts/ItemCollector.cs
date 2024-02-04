@@ -7,10 +7,15 @@ public class ItemCollector : MonoBehaviour
 {
     [SerializeField] private GameObject SingleGateUI;
     [SerializeField] private Sprite xgateSprite;
+    [SerializeField] private Sprite zgateSprite;
 
-    private List<string> duckGates = new List<string> {};
+    public List<string> duckGates = new List<string> {};
 
-    private int gateCount = 0;
+    public int gateCount;
+    void Start()
+    {
+        gateCount = 0;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("X-Gate"))
@@ -19,6 +24,13 @@ public class ItemCollector : MonoBehaviour
             gateCount++;
             AddSingleGateUIElement(xgateSprite);
             duckGates.Add("X");
+        }
+        else if (collision.gameObject.CompareTag("Z-Gate"))
+        {
+            Destroy(collision.gameObject);
+            gateCount++;
+            AddSingleGateUIElement(zgateSprite);
+            duckGates.Add("Z");
         }
 
         foreach (string value in duckGates)
@@ -36,5 +48,18 @@ public class ItemCollector : MonoBehaviour
         Image gateImage = uiElement.GetComponent<Image>();
         gateImage.sprite = gateSprite;
         
+    }
+
+    public void EmptyCircuit()
+    {
+        Transform canvasTransform = GameObject.Find("Canvas").transform;
+
+        // Loop through all child objects of the canvas and destroy them
+        foreach (Transform child in canvasTransform)
+        if (child.name != "CircuitBackground")
+        {
+            // Destroy the child object
+            Destroy(child.gameObject);
+        }
     }
 }
