@@ -13,11 +13,11 @@ public class Finish : MonoBehaviour
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         if (targetState == 0)
         {
-            sr.color = Color.red;
+            sr.color = Color.blue;
         }
         else if (targetState == 1)
         {
-            sr.color = Color.blue;
+            sr.color = Color.red;
         }
     }
 
@@ -31,7 +31,7 @@ public class Finish : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<ExecuteCircuit>().state == targetState)
         {
-        CompleteLevel();
+            CompleteLevel();
         }
     }
 

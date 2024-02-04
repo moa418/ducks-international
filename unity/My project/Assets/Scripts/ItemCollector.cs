@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemCollector : MonoBehaviour
 {
     [SerializeField] private GameObject SingleGateUI;
-    [SerializeField] private Sprite xgateSprite;
-    [SerializeField] private Sprite zgateSprite;
+    [SerializeField] private StageObject stage;
 
     public List<string> duckGates = new List<string> {};
 
@@ -18,36 +18,60 @@ public class ItemCollector : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("X-Gate"))
-        {
-            Destroy(collision.gameObject);
+        Gate g;
+        int qID = gameObject.GetComponent<PlayerMovement>().qubitID;
+        float curr_state = gameObject.GetComponent<PlayerMovement>().state;
+        string coll_tag = collision.gameObject.tag;
+        Debug.Log(coll_tag);
+        if((coll_tag == "CX-Gate") || (coll_tag == "CZ-Gate")) {
+            Debug.Log("Add gate");
             gateCount++;
-            AddSingleGateUIElement(xgateSprite);
-            duckGates.Add("X");
-        }
-        else if (collision.gameObject.CompareTag("Z-Gate"))
-        {
-            Destroy(collision.gameObject);
+            AddDoubleGateUIElement(collision.gameObject);
+            g = new Gate(collision.gameObject.tag, qID - 1, qID);
+            stage.gate_list.Add(g);
+            Debug.Log(g.ToString());
+            float qID1State = StageObject.qubit_array[qID - 1].GetComponent<PlayerMovement>().state;
+            stage.ChangeState(qID, qID1State);
+            stage.entangled_qubits1.Add(qID - 1);
+            stage.entangled_qubits1.Add(qID);
+        } else if((coll_tag == "Water") || (coll_tag == "Lava") || (coll_tag == "Measure")) {
+            Debug.Log("Execute measure");
             gateCount++;
-            AddSingleGateUIElement(zgateSprite);
-            duckGates.Add("Z");
+            AddSingleGateUIElement(collision.gameObject);
+            g = new Gate(collision.gameObject.tag, qID);
+            stage.gate_list.Add(g);
+            Debug.Log(g.ToString());
+            stage.Measure();
+        } else {
+            Debug.Log("Add gate");
+            gateCount++;
+            AddSingleGateUIElement(collision.gameObject);
+            g = new Gate(collision.gameObject.tag, qID);
+            stage.gate_list.Add(g);
+            Debug.Log(g.ToString());
+            if(coll_tag == "X-Gate") {
+                stage.ChangeState(qID, 1f);
+            } else if(coll_tag == "H-Gate") {
+                stage.ChangeState(qID, (float)((-(curr_state-0.75))+0.75));
+            } else if(coll_tag == "Z-Gate") {
+                stage.ChangeState(qID, (((curr_state-1)*-1) + 1) % 2);
+            }
         }
-
-        foreach (string value in duckGates)
-        {
-            Debug.Log(value);
-        }
-
+        Destroy(collision.gameObject);
     }
 
-    void AddSingleGateUIElement(Sprite gateSprite)
+    void AddSingleGateUIElement(GameObject gate_obj)
     {
+        Sprite gate_sprite = gate_obj.GetComponent<SpriteRenderer>().sprite;
         Vector2 pos = new Vector2(-280 + gateCount*50,-50);
         GameObject uiElement = Instantiate(SingleGateUI, pos, Quaternion.identity);
         uiElement.transform.SetParent(GameObject.Find("Canvas").transform, false);
         Image gateImage = uiElement.GetComponent<Image>();
-        gateImage.sprite = gateSprite;
-        
+        gateImage.sprite = gate_sprite;
+    }
+
+    void AddDoubleGateUIElement(GameObject gate_obj) {
+        // stub
     }
 
     public void EmptyCircuit()

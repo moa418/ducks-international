@@ -6,6 +6,13 @@ TagManager:
   tags:
   - X-Gate
   - Z-Gate
+  - CX-Gate
+  - CZ-Gate
+  - H-Gate
+  - Water
+  - Lava
+  - Bomb
+  - Measure
   layers:
   - Default
   - TransparentFX
@@ -42,9 +49,6 @@ TagManager:
   m_SortingLayers:
   - name: Background
     uniqueID: 3866101261
-    locked: 0
-  - name: Mama
-    uniqueID: 1761942043
     locked: 0
   - name: Default
     uniqueID: 0
