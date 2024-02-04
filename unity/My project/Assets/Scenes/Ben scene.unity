@@ -255,11 +255,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86e3c0714d2249e4486d3d0f52a2278c, type: 3}
---- !u!1 &446817116 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3494240170449226090, guid: 86e3c0714d2249e4486d3d0f52a2278c, type: 3}
-  m_PrefabInstance: {fileID: 4377583594604797462}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,32 +402,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3494240170449226090, guid: 86e3c0714d2249e4486d3d0f52a2278c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 927892772}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86e3c0714d2249e4486d3d0f52a2278c, type: 3}
---- !u!1 &927892771 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3494240170449226090, guid: 86e3c0714d2249e4486d3d0f52a2278c, type: 3}
-  m_PrefabInstance: {fileID: 927892770}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &927892772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927892771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08fa98d8d0bc3884e973d22b25f58dc9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SingleGateUI: {fileID: 446817116}
-  xgateSprite: {fileID: 21300000, guid: 49413b1a9706a5747b88d326c86ee04e, type: 3}
-  stage: {fileID: 1256556118}
-  qubitID: 0
 --- !u!1 &1089040883
 GameObject:
   m_ObjectHideFlags: 0
@@ -5498,6 +5469,7 @@ GameObject:
   - component: {fileID: 1848725745}
   - component: {fileID: 1848725746}
   - component: {fileID: 1848725747}
+  - component: {fileID: 1848725748}
   m_Layer: 0
   m_Name: Duck0
   m_TagString: Untagged
@@ -5661,6 +5633,20 @@ MonoBehaviour:
     m_Bits: 64
   moveSpeed: 7
   jumpForce: 14
+  qubitID: 0
+--- !u!114 &1848725748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1848725742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08fa98d8d0bc3884e973d22b25f58dc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stage: {fileID: 1256556118}
 --- !u!1001 &4377583594604797462
 PrefabInstance:
   m_ObjectHideFlags: 0
