@@ -459,10 +459,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 585188cdc4600544eb408bee749e4b3a, type: 3}
-    m_FontSize: 64
+    m_FontSize: 52
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 6
+    m_MinSize: 5
     m_MaxSize: 64
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -470,8 +470,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 3. This is a story about how the ducks are learning about their quantum
-    properties. By using their new powers they can find their way back to mama duck!
+  m_Text: 3. When two of the duckling twins discovered this new power, they became
+    linked and the color of their feathers was entangled. When one of the ducks feathers
+    was randomly chosen, so was the others!
 --- !u!222 &448790412
 CanvasRenderer:
   m_ObjectHideFlags: 0

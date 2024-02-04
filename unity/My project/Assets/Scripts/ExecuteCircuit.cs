@@ -23,9 +23,12 @@ public class ExecuteCircuit : MonoBehaviour
         {
             // state = Execute();
             // UpdateColor();
-            Gate g = new Gate("Measure", -1);
+            Gate g = new Gate("Measure", 0);
             stage.gate_list.Add(g);
             stage.Measure();
+            ItemCollector ICRef = GetComponent<ItemCollector>();
+            ICRef.gateCount = 0;
+            ICRef.EmptyCircuit();   
         }
     }
 
@@ -53,13 +56,5 @@ public class ExecuteCircuit : MonoBehaviour
         Color c = new Color(1-Math.Abs(x-1), 0, Math.Abs(x-1));
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         sr.color = c;
-        // if (state == 0)
-        // {
-        //     sr.color = Color.red;
-        // }
-        // else if (state == 1)
-        // {
-        //     sr.color = Color.blue;
-        // }
     }
 }

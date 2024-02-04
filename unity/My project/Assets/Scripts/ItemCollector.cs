@@ -58,11 +58,11 @@ public class ItemCollector : MonoBehaviour
             stage.gate_list.Add(g);
             Debug.Log(g.ToString());
             if(coll_tag == "X-Gate") {
-                stage.ChangeState(qID, Math.Abs(((1f-curr_state)+2)%2));
+                stage.ChangeState(gameObject, Math.Abs(((1f-curr_state)+2)%2));
             } else if(coll_tag == "H-Gate") {
-                stage.ChangeState(qID, Math.Abs((float)((0.5f-curr_state)+2)%2));
+                stage.ChangeState(gameObject, Math.Abs((float)((0.5f-curr_state)+2)%2));
             } else if(coll_tag == "Z-Gate") {
-                stage.ChangeState(qID, (((curr_state-1)*-1) + 1) % 2);
+                stage.ChangeState(gameObject, (((curr_state-1)*-1) + 1) % 2);
             }
             Destroy(collision.gameObject);
         }

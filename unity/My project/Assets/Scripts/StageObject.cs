@@ -27,11 +27,12 @@ public class StageObject : MonoBehaviour
     // Start is called before the first frame update
     public List<Gate> gate_list = new List<Gate>();
     [SerializeField] private int qubitNum;
-    public static GameObject[] qubit_array = new GameObject[3];
+    public static GameObject[] qubit_array;
 
     public List<int> entangled_qubits1 = new List<int>();
     void Start()
     {
+        qubit_array = new GameObject[qubitNum];
         gate_list.Clear();
         qubit_array = GameObject.FindGameObjectsWithTag("Player");
         for(int i = 0; i < qubit_array.Length; i++) { 
@@ -45,9 +46,28 @@ public class StageObject : MonoBehaviour
         
     }
 
-    public void ChangeState(int id, float rot) {
+    public void ChangeState(int id, float rot) { 
         PlayerMovement pm = qubit_array[id].GetComponent<PlayerMovement>();
         ExecuteCircuit ec = qubit_array[id].GetComponent<ExecuteCircuit>();
+        UnityEngine.Debug.Log(rot);
+        UnityEngine.Debug.Log("TEST");
+        pm.state = rot;
+        ec.UpdateColor(rot);
+        // if(entangled_qubits1.Contains(id)) {
+        //     for(int i = 0; i < entangled_qubits1.Count; i++) {
+        //         if(entangled_qubits1[i] != id) {
+        //             pm = qubit_array[entangled_qubits1[i]].GetComponent<PlayerMovement>();
+        //             ec = qubit_array[entangled_qubits1[i]].GetComponent<ExecuteCircuit>();
+        //             pm.state += rot;
+        //             ec.UpdateColor(pm.state);
+        //         }
+        //     }
+        // }
+    }
+
+    public void ChangeState(GameObject duck, float rot) {
+        PlayerMovement pm = duck.GetComponent<PlayerMovement>();
+        ExecuteCircuit ec = duck.GetComponent<ExecuteCircuit>();
         pm.state = rot;
         ec.UpdateColor(rot);
         // if(entangled_qubits1.Contains(id)) {
@@ -114,9 +134,15 @@ f.close()";
 
         List<int> measured_states = new List<int>();
 
-        for(int i = 0; int_state > 0; i++) {
-            measured_states.Add(int_state % 10);
-            int_state /= 10;
+        if(int_state == 0) {
+            for(int i = 0; i < qubitNum; i++) {
+                measured_states.Add(0);
+            }
+        } else {
+            for(int i = 0; int_state > 0; i++) {
+                measured_states.Add(int_state % 10);
+                int_state /= 10;
+            }
         }
 
         UnityEngine.Debug.Log(measured_states);

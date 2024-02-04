@@ -434,8 +434,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000013828, y: 31.625}
-  m_SizeDelta: {x: 1016.499, y: 345.25}
+  m_AnchoredPosition: {x: -5.653, y: 58.0056}
+  m_SizeDelta: {x: 1227.5437, y: 398.0111}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &448790411
 MonoBehaviour:
@@ -470,8 +470,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '1. This is a story about how the ducks are learning about their quantum
-    properties. By using their new powers they can find their way back to mama duck! '
+  m_Text: 1. Mama Duck can only see her ducklings when the color of her feathers
+    matches her babies! Using their new found quantum powers, the ducklings found
+    that they could change the color of their feathers to match Mama.
 --- !u!222 &448790412
 CanvasRenderer:
   m_ObjectHideFlags: 0
