@@ -8,7 +8,13 @@ public class ItemCollector : MonoBehaviour
     [SerializeField] private GameObject SingleGateUI;
     [SerializeField] private StageObject stage;
 
-    private int gateCount = 0;
+    public List<string> duckGates = new List<string> {};
+
+    public int gateCount;
+    void Start()
+    {
+        gateCount = 0;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Gate g;
@@ -53,5 +59,22 @@ public class ItemCollector : MonoBehaviour
 
     void AddDoubleGateUIElement(GameObject gate_obj) {
         // stub
+    }
+
+    public void EmptyCircuit()
+    {
+        Transform canvasTransform = GameObject.Find("Canvas").transform;
+
+        // Loop through all child objects of the canvas and destroy them
+        foreach (Transform child in canvasTransform)
+        if (child.name != "CircuitBackground")
+        {
+            if (child.name != "Button")
+            {
+            Destroy(child.gameObject);
+
+            }
+            // Destroy the child object
+        }
     }
 }
