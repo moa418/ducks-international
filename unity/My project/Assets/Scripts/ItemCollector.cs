@@ -12,6 +12,7 @@ public class ItemCollector : MonoBehaviour
     public List<string> duckGates = new List<string> {};
 
     public int gateCount;
+    private int qID;
     void Start()
     {
         gateCount = 0;
@@ -19,7 +20,7 @@ public class ItemCollector : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Gate g;
-        int qID = gameObject.GetComponent<PlayerMovement>().qubitID;
+        qID = gameObject.GetComponent<PlayerMovement>().qubitID;
         float curr_state = gameObject.GetComponent<PlayerMovement>().state;
         string coll_tag = collision.gameObject.tag;
         Debug.Log(coll_tag);
@@ -63,7 +64,7 @@ public class ItemCollector : MonoBehaviour
     void AddSingleGateUIElement(GameObject gate_obj)
     {
         Sprite gate_sprite = gate_obj.GetComponent<SpriteRenderer>().sprite;
-        Vector2 pos = new Vector2(-280 + gateCount*50,-50);
+        Vector2 pos = new Vector2(-280 + gateCount*50,-30 - 40 * qID);
         GameObject uiElement = Instantiate(SingleGateUI, pos, Quaternion.identity);
         uiElement.transform.SetParent(GameObject.Find("Canvas").transform, false);
         Image gateImage = uiElement.GetComponent<Image>();

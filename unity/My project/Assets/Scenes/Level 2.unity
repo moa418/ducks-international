@@ -253,7 +253,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: aea07f7352b3d4740a01ce1b18ccdaad, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cdf656a6be5c9a34f9ee0752256f3e4b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5804,7 +5804,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   qubitNum: 2
   entangled_qubits1: 
-  entangled_qubits2: 
 --- !u!1 &1647299767
 GameObject:
   m_ObjectHideFlags: 0
