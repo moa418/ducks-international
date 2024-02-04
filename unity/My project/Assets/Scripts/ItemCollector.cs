@@ -58,8 +58,12 @@ public class ItemCollector : MonoBehaviour
         foreach (Transform child in canvasTransform)
         if (child.name != "CircuitBackground")
         {
-            // Destroy the child object
+            if (child.name != "Button")
+            {
             Destroy(child.gameObject);
+
+            }
+            // Destroy the child object
         }
     }
 }
