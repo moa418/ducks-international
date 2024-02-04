@@ -26,9 +26,14 @@ public class StageObject : MonoBehaviour
 {
     // Start is called before the first frame update
     public List<Gate> gate_list = new List<Gate>();
+    [SerializeField] private int qubitNum;
+    public static GameObject[] qubit_array = new GameObject[3];
+
+    public List<int> entangled_qubits1 = new List<int>();
     void Start()
     {
         gate_list.Clear();
+        qubit_array = GameObject.FindGameObjectsWithTag("Player");
     }
 
     // Update is called once per frame
@@ -37,12 +42,28 @@ public class StageObject : MonoBehaviour
         
     }
 
-    public bool Measure() {
+    public void ChangeState(int id, float rot) {
+        PlayerMovement pm = qubit_array[id].GetComponent<PlayerMovement>();
+        ExecuteCircuit ec = qubit_array[id].GetComponent<ExecuteCircuit>();
+        pm.state += rot;
+        ec.UpdateColor(pm.state);
+        // if(entangled_qubits1.Contains(id)) {
+        //     for(int i = 0; i < entangled_qubits1.Count; i++) {
+        //         if(entangled_qubits1[i] != id) {
+        //             pm = qubit_array[entangled_qubits1[i]].GetComponent<PlayerMovement>();
+        //             ec = qubit_array[entangled_qubits1[i]].GetComponent<ExecuteCircuit>();
+        //             pm.state += rot;
+        //             ec.UpdateColor(pm.state);
+        //         }
+        //     }
+        // }
+    }
+
+    public List<int> Measure() {
         string base_string = @"from qiskit import *;
 def runCircuit():
-    simulator = Aer.get_backend('qasm_simulator');
-    circuit = QuantumCircuit(3, 1);";
-    base_string += "\n";
+    simulator = Aer.get_backend('qasm_simulator');";
+        base_string += $"circuit = QuantumCircuit({qubitNum}, {qubitNum})\n";
         for(int i = 0; i < gate_list.Count; i++) {
             if(gate_list[i].GateType == "X-Gate") {
                 base_string += $"    circuit.x({gate_list[i].Qubit1});\n";
@@ -55,7 +76,7 @@ def runCircuit():
             } else if(gate_list[i].GateType == "H-Gate") {
                 base_string += $"    circuit.h({gate_list[i].Qubit1});\n";
             } else if(gate_list[i].GateType == "Measure") {
-                base_string += $"    circuit.measure({gate_list[i].Qubit1}, 0);\n";
+                base_string += $"    circuit.measure(range({qubitNum}), range({qubitNum}));\n";
             }
         }
         base_string += "    return list(execute(circuit, backend = simulator, shots = 1).result().get_counts().keys())[0];\n";
@@ -83,9 +104,26 @@ f.close()";
 
         int int_state = Int32.Parse(qubitState);
 
-        if(int_state == 1) {
-            return true;
+        // if(int_state == 1) {
+        //     return true;
+        // }
+        // return false;
+
+        List<int> measured_states = new List<int>();
+
+        for(int i = 0; int_state > 0; i++) {
+            measured_states.Add(int_state % 10);
+            int_state /= 10;
         }
-        return false;
+
+        UnityEngine.Debug.Log(measured_states);
+        for(int i = 0; i < measured_states.Count; i++) {
+
+            ExecuteCircuit ec = qubit_array[i].GetComponent<ExecuteCircuit>();
+            ec.UpdateColor(1 - (float)measured_states[i]);
+            UnityEngine.Debug.Log(measured_states[i]);
+        }
+
+        return measured_states;
     }
 }

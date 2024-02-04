@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D body;
     private BoxCollider2D coll;
     public int playerIndex;
+    public float state;
 
     [SerializeField] private LayerMask jumpableGround;
     [SerializeField] private float moveSpeed = 7f;
@@ -30,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
+        state = 0f;
         SwitchControl();
     }
 
@@ -76,5 +78,9 @@ public class PlayerMovement : MonoBehaviour
         // Enable control for the next player in the array (cyclically)
         int nextIndex = (currentIndex + 1) % players.Length;
         players[nextIndex].GetComponent<PlayerMovement>().enabled = true;
+    }
+
+    void ChangeColor(double x) {
+
     }
 }

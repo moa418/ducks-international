@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +20,7 @@ public class ItemCollector : MonoBehaviour
     {
         Gate g;
         int qID = gameObject.GetComponent<PlayerMovement>().qubitID;
+        float curr_state = gameObject.GetComponent<PlayerMovement>().state;
         string coll_tag = collision.gameObject.tag;
         Debug.Log(coll_tag);
         if((coll_tag == "CX-Gate") || (coll_tag == "CZ-Gate")) {
@@ -28,6 +30,10 @@ public class ItemCollector : MonoBehaviour
             g = new Gate(collision.gameObject.tag, qID - 1, qID);
             stage.gate_list.Add(g);
             Debug.Log(g.ToString());
+            float qID1State = StageObject.qubit_array[qID - 1].GetComponent<PlayerMovement>().state;
+            stage.ChangeState(qID, qID1State);
+            stage.entangled_qubits1.Add(qID - 1);
+            stage.entangled_qubits1.Add(qID);
         } else if((coll_tag == "Water") || (coll_tag == "Lava") || (coll_tag == "Measure")) {
             Debug.Log("Execute measure");
             gateCount++;
@@ -43,6 +49,13 @@ public class ItemCollector : MonoBehaviour
             g = new Gate(collision.gameObject.tag, qID);
             stage.gate_list.Add(g);
             Debug.Log(g.ToString());
+            if(coll_tag == "X-Gate") {
+                stage.ChangeState(qID, 1f);
+            } else if(coll_tag == "H-Gate") {
+                stage.ChangeState(qID, (float)((-(curr_state-0.75))+0.75));
+            } else if(coll_tag == "Z-Gate") {
+                stage.ChangeState(qID, (((curr_state-1)*-1) + 1) % 2);
+            }
         }
         Destroy(collision.gameObject);
     }

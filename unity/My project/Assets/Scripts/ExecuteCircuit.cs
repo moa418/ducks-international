@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEditor.SearchService;
 
 public class ExecuteCircuit : MonoBehaviour
 {
+
+    [SerializeField] private StageObject stage;
     // Start is called before the first frame update
     public int state = 0;
     void Start()
     {
-        UpdateColor();
+        UpdateColor(0);
     }
 
     // Update is called once per frame
@@ -18,8 +21,11 @@ public class ExecuteCircuit : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            state = Execute();
-            UpdateColor();
+            // state = Execute();
+            // UpdateColor();
+            Gate g = new Gate("Measure", -1);
+            stage.gate_list.Add(g);
+            stage.Measure();
         }
     }
 
@@ -42,16 +48,18 @@ public class ExecuteCircuit : MonoBehaviour
 
     }
 
-    private void UpdateColor()
+    public void UpdateColor(float x)
     {   
+        Color c = new Color(1-Math.Abs(x-1), 0, Math.Abs(x-1));
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        if (state == 0)
-        {
-            sr.color = Color.red;
-        }
-        else if (state == 1)
-        {
-            sr.color = Color.blue;
-        }
+        sr.color = c;
+        // if (state == 0)
+        // {
+        //     sr.color = Color.red;
+        // }
+        // else if (state == 1)
+        // {
+        //     sr.color = Color.blue;
+        // }
     }
 }

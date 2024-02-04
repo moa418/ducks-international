@@ -1,10 +1,11 @@
 from qiskit import *;
 def runCircuit():
-    simulator = Aer.get_backend('qasm_simulator');
-    circuit = QuantumCircuit(3, 1);
+    simulator = Aer.get_backend('qasm_simulator');circuit = QuantumCircuit(2, 2)
+    circuit.h(0);
+    circuit.cx(0, 1);
     circuit.x(0);
-    circuit.z(0);
-    circuit.measure(0, 0);
+    circuit.measure(range(2), range(2));
+    circuit.measure(range(2), range(2));
     return list(execute(circuit, backend = simulator, shots = 1).result().get_counts().keys())[0];
 f = open('c:/Users/benku/unity projects/ducks-international/unity/My project/circ_output.txt', 'w')
 f.write(str(runCircuit()))
