@@ -12,6 +12,7 @@ TagManager:
   - Water
   - Lava
   - Bomb
+  - Measure
   layers:
   - Default
   - TransparentFX
